@@ -11,7 +11,7 @@ public class MyArrayListTest extends TestCase {
 
     public void testAddingElementShouldIncreaseSize() {
         MyArrayList<Integer> list = new MyArrayList<>();
-        list.add(10);
+        list.add(100);
         assertEquals(1, list.size());
     }
 
@@ -23,7 +23,7 @@ public class MyArrayListTest extends TestCase {
 
     public void testGetWithInvalidIndexShouldThrowException() {
         MyArrayList<Integer> list = new MyArrayList<>();
-        list.add(10);
+        list.add(101);
         try {
             list.get(1);
             fail("Se esperaba IndexOutOfBoundsException");
