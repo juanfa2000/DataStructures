@@ -1,4 +1,4 @@
-package com.juanfa;
+package com.juanfa.array;
 
 import junit.framework.TestCase;
 

@@ -1,4 +1,4 @@
-package com.juanfa;
+package com.juanfa.array;
 
 import junit.framework.TestCase;
 
@@ -13,16 +13,22 @@ public class MyArrayListTest extends TestCase {
         MyArrayList<Integer> list = new MyArrayList<>();
         list.add(100);
         assertEquals(1, list.size());
+
+
+        MyArrayList<String> slist = new MyArrayList<>();
+        slist.add("100");
+        assertEquals(1, slist.size());
     }
 
     public void testGetShouldReturnAddedElement() {
-        MyArrayList<Integer> list = new MyArrayList<>();
+        MyArrayList<Integer>list = new MyArrayList<>();
         list.add(10);
-        assertEquals((Integer) 10, list.get(0));
+        Integer actual = list.get(0);
+        assertEquals(Integer.valueOf(10), actual);
     }
 
     public void testGetWithInvalidIndexShouldThrowException() {
-        MyArrayList<Integer> list = new MyArrayList<>();
+        MyArrayList<Integer>list = new MyArrayList<>();
         list.add(101);
         try {
             list.get(1);

@@ -1,14 +1,10 @@
-package com.juanfa;
+package com.juanfa.array;
 
 import java.util.Arrays;
 
 class MyArrayList<T> {
     private int size = 0;
-    private Object[] elements;
-
-    public MyArrayList() {
-        elements = new Object[10];
-    }
+    private T[] elements = (T[]) new Object[10];
 
     public int size() {
         return size;
@@ -27,7 +23,7 @@ class MyArrayList<T> {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Indice fuera de rango: " + index);
         }
-        return (T) elements[index];
+        return elements[index];
     }
 
 }

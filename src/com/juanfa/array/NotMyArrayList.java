@@ -1,4 +1,4 @@
-package com.juanfa;
+package com.juanfa.array;
 
 public class NotMyArrayList {
     private Object[] container = new Object[]{};
