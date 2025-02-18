@@ -4,32 +4,36 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestMyArrayList {
-@Test
+    @Test
     public void testNewListShouldBeEmpty() {
         MyArrayList<Integer> arrayList = new MyArrayList<>();
         assertEquals(0, arrayList.size());
     }
-@Test
+
+    @Test
     public void testAddElementIncreasesSize() {
         MyArrayList<Integer> arrayList = new MyArrayList<>();
         arrayList.add(5);
         assertEquals(1, arrayList.size());
     }
-@Test
+
+    @Test
     public void testGetAddedElement() {
         MyArrayList<Integer> arrayList = new MyArrayList<>();
         arrayList.add(50);
         Integer actual = arrayList.get(0);
         assertEquals(Integer.valueOf(50), actual);
     }
-@Test
+
+    @Test
     public void testSortSingleElementList() {
         MyArrayList<Integer> arrayList = new MyArrayList<>();
         arrayList.add(5);
         arrayList.sort();
         assertEquals(Integer.valueOf(5), arrayList.get(0));
     }
-@Test
+
+    @Test
     public void testSortTwoElementList() {
         MyArrayList<Integer> arrayList = new MyArrayList<>();
         arrayList.add(55);
@@ -38,7 +42,8 @@ public class TestMyArrayList {
         assertEquals(Integer.valueOf(5), arrayList.get(0));
         assertEquals(Integer.valueOf(55), arrayList.get(1));
     }
-@Test
+
+    @Test
     public void testSortMultipleElementList() {
         MyArrayList<Integer> arrayList = new MyArrayList<>();
         arrayList.add(66);
@@ -50,4 +55,3 @@ public class TestMyArrayList {
         assertEquals(Integer.valueOf(66), arrayList.get(2));
     }
 }
-
