@@ -139,4 +139,29 @@ public class TestMyLinkedList {
         assertEquals(Integer.valueOf((36)), linkedList.get(1));
         assertEquals(Integer.valueOf((81)), linkedList.get(2));
     }
+    @Test
+    public void testSetMethod() {
+
+        MyLinkedList<Integer> linkedList = new MyLinkedList<>();
+        linkedList.add(82);
+        linkedList.add(83);
+        linkedList.add(84);
+
+        linkedList.set(1, 85);
+
+        assertEquals(Integer.valueOf(82), linkedList.get(0));
+        assertEquals(Integer.valueOf(85), linkedList.get(1));
+        assertEquals(Integer.valueOf(84), linkedList.get(2));
+    }
+    @Test
+    public void testSetWhitIndexOutOfBounds(){
+        MyLinkedList<Integer> linkedList = new MyLinkedList<>();
+        linkedList.add(1);
+        linkedList.add(2);
+
+        assertThrows(IndexOutOfBoundsException.class, () ->{
+            linkedList.set(3,5);
+        });
+    }
+    
 }
