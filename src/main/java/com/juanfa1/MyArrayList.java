@@ -1,6 +1,8 @@
 package com.juanfa1;
 
-public class MyArrayList<T> {
+import java.util.Iterator;
+
+public class MyArrayList<T> implements Iterable<T> {
     private int size = 0;
     private final T[] elements = (T[]) new Object[10];
 
@@ -34,5 +36,10 @@ public class MyArrayList<T> {
             }
 
         }
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return null;
     }
 }
