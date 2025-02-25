@@ -1,11 +1,13 @@
 package com.juanfa1;
 
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -125,43 +127,99 @@ public class TestMyLinkedList {
         linkedList.add(6);
         linkedList.add(9);
         // Y un consumer que eleva cada elemento al cuadrado
-        //Consumer<Integer> consumer = integer -> integer = integer * integer;
-        AtomicInteger index = new AtomicInteger(0);
-        Consumer<Integer> consumer = integer ->
-                linkedList.set(index.getAndIncrement(), integer * integer);
+        List<Integer> squares = new java.util.ArrayList<>();
+        Consumer<Integer> consumer = i -> squares.add(i * i);
 
 
         // Cuando aplico el consumer a cada elemento
         linkedList.forEach(consumer);
 
         // Entonces los elementos de la lista están cada uno, elevados el a=cuadrado
-        assertEquals(Integer.valueOf((9)), linkedList.get(0));
-        assertEquals(Integer.valueOf((36)), linkedList.get(1));
-        assertEquals(Integer.valueOf((81)), linkedList.get(2));
+        assertEquals(Integer.valueOf((9)), squares.get(0));
+        assertEquals(Integer.valueOf((36)), squares.get(1));
+        assertEquals(Integer.valueOf((81)), squares.get(2));
     }
+
     @Test
-    public void testSetMethod() {
-
+    public void testReplaceAllOnEmptyListWontFail() {
         MyLinkedList<Integer> linkedList = new MyLinkedList<>();
-        linkedList.add(82);
-        linkedList.add(83);
-        linkedList.add(84);
 
-        linkedList.set(1, 85);
-
-        assertEquals(Integer.valueOf(82), linkedList.get(0));
-        assertEquals(Integer.valueOf(85), linkedList.get(1));
-        assertEquals(Integer.valueOf(84), linkedList.get(2));
+        try {
+            linkedList.replaceAll(x -> x * 2);
+        } catch (Exception e) {
+            fail("This should have not failed damn it!");
+        }
     }
+
     @Test
-    public void testSetWhitIndexOutOfBounds(){
+    public void testReplaceAllIncrementByOne() {
         MyLinkedList<Integer> linkedList = new MyLinkedList<>();
+
+        linkedList.add(5);
+        linkedList.add(10);
+        linkedList.add(15);
+
+        linkedList.replaceAll(x -> x + 1);
+
+        assertEquals(Integer.valueOf(6), linkedList.get(0));
+        assertEquals(Integer.valueOf(11), linkedList.get(1));
+        assertEquals(Integer.valueOf(16), linkedList.get(2));
+    }
+
+    @Test
+    public void testRemoveAllEmptyList() {
+        MyLinkedList<Integer> linkedList = new MyLinkedList<>();
+
+        try{
+            linkedList.removeAll(num -> num % 2 == 0);
+        } catch (Exception e) {
+            fail("This should not have failed");
+        }
+    }
+
+    @Test
+    public void testRemoveAllSingleElement() {
+        MyLinkedList<Integer> linkedList = new MyLinkedList<>();
+
+        linkedList.add(5);
+
+        linkedList.removeAll(num -> num == 5);
+
+        assertEquals(0, linkedList.size());
+    }
+
+    @Test
+    public void testRemoveAllEvenNumbers() {
+        MyLinkedList<Integer> linkedList = new MyLinkedList<>();
+
         linkedList.add(1);
         linkedList.add(2);
+        linkedList.add(3);
+        linkedList.add(4);
+        linkedList.add(5);
 
-        assertThrows(IndexOutOfBoundsException.class, () ->{
-            linkedList.set(3,5);
-        });
+        Predicate<Integer> isEven = num -> num % 2 == 0;
+
+        linkedList.removeAll(isEven);
+
+        assertEquals(3, linkedList.size());
+        assertEquals(1, (int) linkedList.get(0));
+        assertEquals(3, (int) linkedList.get(1));
+        assertEquals(5, (int) linkedList.get(2));
     }
-    
+
+    @Test
+    public void testRemoveAllDeleteEverything() {
+        MyLinkedList<Integer> linkedList = new MyLinkedList<>();
+
+        linkedList.add(2);
+        linkedList.add(4);
+        linkedList.add(6);
+
+        Predicate<Integer> isEven = num -> num % 2 == 0;
+
+        linkedList.removeAll(isEven);
+
+        assertEquals(0, linkedList.size());
+    }
 }
