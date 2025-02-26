@@ -1,6 +1,5 @@
 package com.juanfa1;
 
-import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.util.Iterator;
@@ -181,6 +180,18 @@ public class TestMyLinkedList {
     public void testRemoveAllSingleElement() {
         MyLinkedList<Integer> linkedList = new MyLinkedList<>();
 
+        linkedList.add(5);
+
+        linkedList.removeAll(num -> num == 5);
+
+        assertEquals(0, linkedList.size());
+    }
+
+    @Test
+    public void testRemoveAllTwoElement() {
+        MyLinkedList<Integer> linkedList = new MyLinkedList<>();
+
+        linkedList.add(5);
         linkedList.add(5);
 
         linkedList.removeAll(num -> num == 5);

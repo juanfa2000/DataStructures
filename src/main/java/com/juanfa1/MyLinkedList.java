@@ -16,7 +16,7 @@ public class MyLinkedList<T> implements Iterable<T> {
     }
 
     public void add(T element) {
-        Node<T> newNode = new Node<>(element, size);
+        Node<T> newNode = new Node<>(element);
 
         if (head == null) {
             head = newNode;
@@ -26,6 +26,7 @@ public class MyLinkedList<T> implements Iterable<T> {
                 current = current.next;
             }
             current.next = newNode;
+            newNode.prev = current;
         }
         size++;
     }
@@ -78,9 +79,9 @@ public class MyLinkedList<T> implements Iterable<T> {
         } while (swapped);
     }
 
-    public void replaceAll(Function<T, T> func){
+    public void replaceAll(Function<T, T> func) {
         var it = mutableIterator();
-        while (it.hasNext()){
+        while (it.hasNext()) {
             var newVal = func.apply(it.getCurrent());
             it.set(newVal);
             it.next();
@@ -88,25 +89,16 @@ public class MyLinkedList<T> implements Iterable<T> {
     }
 
     //TODO: refactor this using MutableListIterator's remove method
-    public void removeAll(Predicate<T> predicate){
-        while(head != null && predicate.test(head.data)){
-            head = head.next;
-
-            size--;
-        }
-        if (head == null) return;
-
-        Node<T> current = head;
-        while ( current.next != null){
-            if(predicate.test(current.next.data)){
-                current.next = current.next.next;
-
+    public void removeAll(Predicate<T> predicate) {
+        var it = mutableIterator();
+        while (it.hasNext()) {
+            if (predicate.test(it.getCurrent())) {
+                it.remove();
                 size--;
-            }else{
-                current = current.next;
+            } else {
+                it.next();
             }
         }
-
     }
 
     public void forEach(Consumer<? super T> consumer) {
@@ -129,12 +121,10 @@ public class MyLinkedList<T> implements Iterable<T> {
 class Node<T> {
     T data;
     Node<T> next;
-    int index;
+    Node<T> prev;
 
-
-    Node(T data, int index) {
+    Node(T data) {
         this.data = data;
-        this.index = index;
     }
 
 }
@@ -168,7 +158,7 @@ class MutableLinkedListIterator<T> extends LinkedListIterator<T> implements List
         super(head);
     }
 
-    public T getCurrent(){
+    public T getCurrent() {
         return this.current.data;
     }
 
@@ -179,7 +169,7 @@ class MutableLinkedListIterator<T> extends LinkedListIterator<T> implements List
 
     @Override
     public T previous() {
-        return null;
+        return current.prev.data;
     }
 
     @Override
@@ -195,7 +185,17 @@ class MutableLinkedListIterator<T> extends LinkedListIterator<T> implements List
     //TODO: Implement this
     @Override
     public void remove() {
-
+        if (current != null) {
+            if (current.next == null) {
+                current = null;
+            } else {
+                if (current.prev != null) {
+                    current.prev.next = current.next;
+                }
+                current.next.prev = current.prev;
+                current = current.next;
+            }
+        }
     }
 
     //FIXME: Test que pasa acá cuando la lista está vacía
