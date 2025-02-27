@@ -9,24 +9,23 @@ import java.util.function.Predicate;
 
 public class MyLinkedList<T> implements Iterable<T> {
     private Node<T> head;
+    private Node<T> tail;
     private int size = 0;
 
     public int size() {
         return size;
     }
 
-    public void add(T element) {
+    public void append(T element) {
         Node<T> newNode = new Node<>(element);
 
         if (head == null) {
             head = newNode;
+            tail = newNode;
         } else {
-            Node<T> current = head;
-            while (current.next != null) {
-                current = current.next;
-            }
-            current.next = newNode;
-            newNode.prev = current;
+            tail.next = newNode;
+            newNode.prev = tail;
+            tail = newNode;
         }
         size++;
     }
@@ -88,7 +87,6 @@ public class MyLinkedList<T> implements Iterable<T> {
         }
     }
 
-    //TODO: refactor this using MutableListIterator's remove method
     public void removeAll(Predicate<T> predicate) {
         var it = mutableIterator();
         while (it.hasNext()) {
@@ -182,29 +180,25 @@ class MutableLinkedListIterator<T> extends LinkedListIterator<T> implements List
         return 0;
     }
 
-    //TODO: Implement this
     @Override
     public void remove() {
-        if (current != null) {
-            if (current.next == null) {
-                current = null;
-            } else {
-                if (current.prev != null) {
-                    current.prev.next = current.next;
-                }
-                current.next.prev = current.prev;
-                current = current.next;
+        if (current.next == null) {
+            current = null;
+        } else {
+            if (current.prev != null) {
+                current.prev.next = current.next;
             }
+            current.next.prev = current.prev;
+            current = current.next;
         }
     }
 
-    //FIXME: Test que pasa acá cuando la lista está vacía
     @Override
     public void set(T o) {
         this.current.data = o;
     }
 
-    //TODO: Pensar caso de uso para iterar una lista y agregar elementos
+    //TODO: Implementar el insert(n) usando este método
     @Override
     public void add(T o) {
 

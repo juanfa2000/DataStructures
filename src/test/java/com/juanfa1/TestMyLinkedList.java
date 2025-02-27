@@ -18,16 +18,16 @@ public class TestMyLinkedList {
     }
 
     @Test
-    public void testAddElementIncreasesSize() {
+    public void testAppendElementIncreasesSize() {
         MyLinkedList<Integer> linkedList = new MyLinkedList<>();
-        linkedList.add(5);
+        linkedList.append(5);
         assertEquals(1, linkedList.size());
     }
 
     @Test
     public void testGetAddedElement() {
         MyLinkedList<Integer> linkedList = new MyLinkedList<>();
-        linkedList.add(50);
+        linkedList.append(50);
         Integer actual = linkedList.get(0);
         assertEquals(Integer.valueOf(50), actual);
     }
@@ -35,7 +35,7 @@ public class TestMyLinkedList {
     @Test
     public void testSortSingleElementList() {
         MyLinkedList<Integer> linkedList = new MyLinkedList<>();
-        linkedList.add(5);
+        linkedList.append(5);
         linkedList.sort();
         assertEquals(Integer.valueOf(5), linkedList.get(0));
     }
@@ -43,8 +43,8 @@ public class TestMyLinkedList {
     @Test
     public void testSortTwoElementList() {
         MyLinkedList<Integer> linkedList = new MyLinkedList<>();
-        linkedList.add(55);
-        linkedList.add(5);
+        linkedList.append(55);
+        linkedList.append(5);
         linkedList.sort();
         assertEquals(Integer.valueOf(5), linkedList.get(0));
         assertEquals(Integer.valueOf(55), linkedList.get(1));
@@ -53,9 +53,9 @@ public class TestMyLinkedList {
     @Test
     public void testSortMultipleElementList() {
         MyLinkedList<Integer> linkedList = new MyLinkedList<>();
-        linkedList.add(66);
-        linkedList.add(55);
-        linkedList.add(5);
+        linkedList.append(66);
+        linkedList.append(55);
+        linkedList.append(5);
         linkedList.sort();
         assertEquals(Integer.valueOf(5), linkedList.get(0));
         assertEquals(Integer.valueOf(55), linkedList.get(1));
@@ -79,7 +79,7 @@ public class TestMyLinkedList {
     @Test
     public void testIteratorWhitOneElement() {
         MyLinkedList<Integer> linkedList = new MyLinkedList<>();
-        linkedList.add(77);
+        linkedList.append(77);
 
         Iterator<Integer> iterator = linkedList.iterator();
 
@@ -90,8 +90,8 @@ public class TestMyLinkedList {
     @Test
     public void testIteratorWhitTwoElement() {
         MyLinkedList<Integer> linkedList = new MyLinkedList<>();
-        linkedList.add(77);
-        linkedList.add(78);
+        linkedList.append(77);
+        linkedList.append(78);
 
         var it = linkedList.iterator();
         assertTrue(it.hasNext());
@@ -107,7 +107,7 @@ public class TestMyLinkedList {
         var size = (int) (Math.random() * 100);
 
         for (int i = 0; i < size; i++) {
-            linkedList.add((int) (Math.random() * 100));
+            linkedList.append((int) (Math.random() * 100));
         }
 
         var iterElements = 0;
@@ -122,9 +122,9 @@ public class TestMyLinkedList {
     public void testForEachAppliesConsumer() {
         ///  Given a list with elements
         MyLinkedList<Integer> linkedList = new MyLinkedList<>();
-        linkedList.add(3);
-        linkedList.add(6);
-        linkedList.add(9);
+        linkedList.append(3);
+        linkedList.append(6);
+        linkedList.append(9);
         // Y un consumer que eleva cada elemento al cuadrado
         List<Integer> squares = new java.util.ArrayList<>();
         Consumer<Integer> consumer = i -> squares.add(i * i);
@@ -154,9 +154,9 @@ public class TestMyLinkedList {
     public void testReplaceAllIncrementByOne() {
         MyLinkedList<Integer> linkedList = new MyLinkedList<>();
 
-        linkedList.add(5);
-        linkedList.add(10);
-        linkedList.add(15);
+        linkedList.append(5);
+        linkedList.append(10);
+        linkedList.append(15);
 
         linkedList.replaceAll(x -> x + 1);
 
@@ -180,7 +180,7 @@ public class TestMyLinkedList {
     public void testRemoveAllSingleElement() {
         MyLinkedList<Integer> linkedList = new MyLinkedList<>();
 
-        linkedList.add(5);
+        linkedList.append(5);
 
         linkedList.removeAll(num -> num == 5);
 
@@ -191,8 +191,8 @@ public class TestMyLinkedList {
     public void testRemoveAllTwoElement() {
         MyLinkedList<Integer> linkedList = new MyLinkedList<>();
 
-        linkedList.add(5);
-        linkedList.add(5);
+        linkedList.append(5);
+        linkedList.append(5);
 
         linkedList.removeAll(num -> num == 5);
 
@@ -203,11 +203,11 @@ public class TestMyLinkedList {
     public void testRemoveAllEvenNumbers() {
         MyLinkedList<Integer> linkedList = new MyLinkedList<>();
 
-        linkedList.add(1);
-        linkedList.add(2);
-        linkedList.add(3);
-        linkedList.add(4);
-        linkedList.add(5);
+        linkedList.append(1);
+        linkedList.append(2);
+        linkedList.append(3);
+        linkedList.append(4);
+        linkedList.append(5);
 
         Predicate<Integer> isEven = num -> num % 2 == 0;
 
@@ -223,9 +223,9 @@ public class TestMyLinkedList {
     public void testRemoveAllDeleteEverything() {
         MyLinkedList<Integer> linkedList = new MyLinkedList<>();
 
-        linkedList.add(2);
-        linkedList.add(4);
-        linkedList.add(6);
+        linkedList.append(2);
+        linkedList.append(4);
+        linkedList.append(6);
 
         Predicate<Integer> isEven = num -> num % 2 == 0;
 
