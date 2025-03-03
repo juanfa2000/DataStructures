@@ -119,6 +119,30 @@ public class TestMyLinkedList {
     }
 
     @Test
+    public void testGetWithIndexGreaterThanSize() {
+        MyLinkedList<Integer> linkedList = new MyLinkedList<>();
+        linkedList.append(5);
+
+        Exception exception = assertThrows(IndexOutOfBoundsException.class, () -> {
+            linkedList.get(10);
+        });
+
+        assertTrue(exception.getMessage().contains("Indice fuera de rango"));
+    }
+
+    @Test
+    public void testGetWithNegativeIndex() {
+        MyLinkedList<Integer> linkedList = new MyLinkedList<>();
+        linkedList.append(5);
+
+        Exception exception = assertThrows(IndexOutOfBoundsException.class, () -> {
+            linkedList.get(-1);
+        });
+
+        assertTrue(exception.getMessage().contains("Indice fuera de rango"));
+    }
+
+    @Test
     public void testForEachAppliesConsumer() {
         ///  Given a list with elements
         MyLinkedList<Integer> linkedList = new MyLinkedList<>();
@@ -169,7 +193,7 @@ public class TestMyLinkedList {
     public void testRemoveAllEmptyList() {
         MyLinkedList<Integer> linkedList = new MyLinkedList<>();
 
-        try{
+        try {
             linkedList.removeAll(num -> num % 2 == 0);
         } catch (Exception e) {
             fail("This should not have failed");
@@ -233,4 +257,63 @@ public class TestMyLinkedList {
 
         assertEquals(0, linkedList.size());
     }
+
+    @Test
+    public void testInsertAtBeginningWhenEmptyList() {
+        MyLinkedList<Integer> linkedList = new MyLinkedList<>();
+
+        linkedList.insert(0, 10);
+
+        assertEquals(1, linkedList.size());
+        assertEquals(10, linkedList.get(0));
+    }
+
+    @Test
+    public void testInsertAtBeginningWhenNotEmptyList() {
+        MyLinkedList<Integer> linkedList = new MyLinkedList<>();
+
+        linkedList.append(11);
+        linkedList.append(13);
+        linkedList.append(14);
+
+        linkedList.insert(0, 10);
+
+        assertEquals(4, linkedList.size());
+        assertEquals(10, linkedList.get(0));
+        assertEquals(11, linkedList.get(1));
+        assertEquals(13, linkedList.get(2));
+        assertEquals(14, linkedList.get(3));
+    }
+
+
+    @Test
+    public void testInsertAtEndWhenNotEmptyList() {
+        MyLinkedList<Integer> linkedList = new MyLinkedList<>();
+
+        linkedList.append(11);
+        linkedList.append(13);
+        linkedList.append(14);
+
+        linkedList.insert(3, 15);
+
+        assertEquals(4, linkedList.size());
+        assertEquals(11, linkedList.get(0));
+        assertEquals(13, linkedList.get(1));
+        assertEquals(14, linkedList.get(2));
+        assertEquals(15, linkedList.get(3));
+    }
+
+    @Test
+    public void testAddInMiddle() {
+        MyLinkedList<Integer> linkedList = new MyLinkedList<>();
+
+        linkedList.append(10);
+        linkedList.append(13);
+
+        linkedList.insert(1, 12);
+
+        assertEquals(3, linkedList.size());
+        assertEquals(12, linkedList.get(1));
+    }
+    
 }

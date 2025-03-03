@@ -16,6 +16,31 @@ public class MyLinkedList<T> implements Iterable<T> {
         return size;
     }
 
+    public void insert(int where, T element) {
+        if (head == null) {
+            append(element);
+        } else {
+            if (where == 0) {
+                var newNode = new Node<>(element);
+
+                newNode.next = head;
+                head.prev = newNode;
+                head = newNode;
+                size++;
+            } else if (where == size) {
+                append(element);
+            } else {
+                var it = mutableIterator();
+                for (int i = 0; i < where && it.hasNext(); i++) {
+                    it.next();
+                }
+                it.add(element);
+                size++;
+
+            }
+        }
+    }
+
     public void append(T element) {
         Node<T> newNode = new Node<>(element);
 
@@ -35,11 +60,11 @@ public class MyLinkedList<T> implements Iterable<T> {
             throw new IndexOutOfBoundsException("Indice fuera de rango: " + index);
         }
 
-        Node<T> current = head;
+        var it = mutableIterator();
         for (int i = 0; i < index; i++) {
-            current = current.next;
+            it.next();
         }
-        return current.data;
+        return it.getCurrent();
     }
 
     public void sort() {
@@ -198,9 +223,16 @@ class MutableLinkedListIterator<T> extends LinkedListIterator<T> implements List
         this.current.data = o;
     }
 
-    //TODO: Implementar el insert(n) usando este método
     @Override
     public void add(T o) {
+        Node<T> newNode = new Node<>(o);
+
+        newNode.prev = current.prev;
+        newNode.next = current;
+        current.prev.next = newNode;
+        current.prev = newNode;
+
+
 
     }
 }
